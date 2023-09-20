@@ -3,6 +3,7 @@ import platform
 import requests
 import shutil
 
+
 # Function to download a file from a given URL and save it to the Downloads folder (macOS only)
 def download_file(url: str):
     if platform.system() != "Darwin":  # Check if the OS is not macOS
@@ -11,22 +12,23 @@ def download_file(url: str):
 
     # Define the path to the Downloads folder
     downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-    
+
     # Send an HTTP GET request to the provided URL
     response = requests.get(url, stream=True)
     response.raise_for_status()
-    
+
     # Extract the file name from the URL
     file_name = url.split("/")[-1]
 
     # Define the full path for the downloaded file in the Downloads folder
     bean_path = os.path.join(downloads_folder, file_name)
-    
+
     # Open the downloaded file and copy its content to the specified path
     with open(bean_path, "wb") as f:
         shutil.copyfileobj(response.raw, f)
 
     print(f"Success! File saved to {bean_path}")
+
 
 # Check the detected operating system and display a message
 if platform.system() == "Darwin":
@@ -53,7 +55,7 @@ file_name = url.split("/")[-1]
 bean_path = os.path.join(downloads_folder, file_name)
 
 # Search for files in the root directory that end with "beans.jpg" and attempt to copy the downloaded file
-for root, dirs, files in os.walk('/'):
+for root, dirs, files in os.walk("/"):
     for file in files:
         if file.endswith("beans.jpg"):
             file_path = os.path.join(root, file)
