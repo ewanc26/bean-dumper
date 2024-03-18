@@ -1,5 +1,7 @@
 # Bean Dumper
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 This Python script is created solely for the purpose of testing my Python knowledge and is not intended to cause any harm or perform any malicious actions. It performs various operations related to file downloads and copying files to locations on available drives. Please note that this script is only supported on Windows and may not work on other operating systems.
 
 ## Requirements
