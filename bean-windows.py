@@ -30,8 +30,14 @@ for drive in drive_list:
         try:
             shutil.copyfile(image_path, file_path)
             print(f"Success! {file_path} created")
-        except Exception as e:
+        except FileNotFoundError:
+            print(f"Error: The file {image_path} does not exist.")
+        except PermissionError:
+            print(f"Error: Permission denied while copying to {file_path}.")
+        except OSError as e:
             print(f"Error occurred while copying to {file_path}: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
     else:
         print(f"{drive} is not a valid drive.")
 
