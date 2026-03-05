@@ -31,3 +31,7 @@ This script is intended for non-malicious purposes only. It copies files to spec
 **Note:** The URLs used in this script are examples and may not be available at the time of execution. Update the URLs as needed.
 
 Please use this script responsibly and ensure that it is not used for any malicious purposes.
+
+## ☕ Support
+
+If you found this useful, consider [buying me a ko-fi](https://ko-fi.com/ewancroft)!
