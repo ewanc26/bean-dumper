@@ -1,19 +1,23 @@
 # AGENTS.md
 
-Guidance for agents working on Bean Dumper, an intentionally small, unmaintained Windows Python learning project.
+Guidance for AI coding agents working in **bean-dumper**.
 
-## Scope and current behavior
+## Project overview
 
-The implementation is the single top-level `bean-windows.py` script. Despite the older README description, the current source does not download anything and does not check for an existing marker file: it resolves the bundled `beans.jpg` beside the script, enumerates every logical drive returned by `win32api.GetLogicalDriveStrings()`, and attempts to copy the image to `<drive>\beans.jpg`, overwriting an existing file through `shutil.copyfile`.
 
-## Safety rules
 
-- Treat every filesystem write and overwrite as potentially destructive. Before expanding or running the script, add or preserve an explicit opt-in/confirmation boundary; the current implementation has none.
-- Never broaden the script into removable-drive propagation, background persistence, autorun behavior, or silent execution.
-- Do not add the README's historical download behavior without an explicit request. If network download is reintroduced, validate the URL, status, size, and content separately from drive copying.
-- Preserve the Windows-only guard; platform-specific drive discovery should remain isolated and mockable.
-- Do not add real personal URLs, credentials, or user paths to the repository.
+- Language: Python
+- Default branch: main
 
-## Validation
+## Working rules
 
-Run syntax checks with `python -m py_compile bean-windows.py`. Because `win32api` is imported before the platform guard, behavioral tests require Windows or a mocked module. Mock drive enumeration and `shutil.copyfile`; cover non-Windows exit, empty drive strings, invalid drives, missing bundled image, permission errors, generic `OSError`, and an existing destination. Do not run copy tests against real drive roots. The project is marked unmaintained, so avoid dependency churn or expansion beyond a requested maintenance fix.
+- Inspect the README, manifests, CI workflows, and nearby code before editing.
+- Preserve existing architecture, naming, formatting, and error-handling conventions.
+- Use project scripts for validation; never claim checks you did not run.
+- Keep changes scoped and update tests or documentation when behavior changes.
+- Use feature branches and pull requests.
+- Treat generated files, credentials, deployment configuration, and release metadata as sensitive.
+
+## Recent history
+
+Sync AGENTS.md from zincfox; Sync AGENTS.md from zincfox; Sync CONTRIBUTING.md from zincfox; Sync CONTRIBUTING.md from zincfox; Update issue template config
