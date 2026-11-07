@@ -20,4 +20,4 @@ Guidance for AI coding agents working in **bean-dumper**.
 
 ## Recent history
 
-Sync AGENTS.md from zincfox; Sync AGENTS.md from zincfox; Sync CONTRIBUTING.md from zincfox; Sync CONTRIBUTING.md from zincfox; Update issue template config
+Update issue template config
