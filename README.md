@@ -1,5 +1,7 @@
 # Bean Dumper
 
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/ewanc26/bean-dumper?label=licence" alt="Licence"></a>
+  <a href="https://github.com/sponsors/ewanc26"><img src="https://img.shields.io/github/sponsors/ewanc26?logo=githubsponsors&logoColor=white&label=sponsors" alt="Sponsor"></a>
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 Test script for learning Python. Windows only. Downloads files and copies them to available drives.
@@ -25,6 +27,9 @@ python bean-dumper.py
 4. Copies the file to drives that already have files named `beans.jpg`
 
 **Note:** URLs in the script are examples — update them. The script can overwrite existing `beans.jpg` files.
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and the checks required before opening a pull request.
 
 ## Licence
 
