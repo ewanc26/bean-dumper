@@ -4,6 +4,8 @@ Guidance for AI coding agents working in **bean-dumper**.
 
 ## Project overview
 
+Test script for learning Python. Windows only. Downloads files and copies them to available drives.
+
 - Language: Python
 - Default branch: main
 
